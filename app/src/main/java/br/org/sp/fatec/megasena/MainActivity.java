@@ -10,6 +10,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void SortearNumeros(View view)
-    {
+    public void SortearNumeros(View view) {
+
         int[] ids = {
                 R.id.numero1,
                 R.id.numero2,
@@ -37,9 +40,20 @@ public class MainActivity extends AppCompatActivity {
                 R.id.numero6
         };
 
-        for (int id : ids) {
-            TextView textView = findViewById(id);
-            textView.setText(String.valueOf(sortearNumero()));
+        List<Integer> numeros = new ArrayList<>();
+        for (int i = 1; i <= 60; i++) {
+            numeros.add(i);
+        }
+
+        Collections.shuffle(numeros);
+
+        List<Integer> sorteados = numeros.subList(0, 6);
+
+        Collections.sort(sorteados);
+
+        for (int i = 0; i < ids.length; i++) {
+            TextView textView = findViewById(ids[i]);
+            textView.setText(String.valueOf(sorteados.get(i)));
         }
     }
 
@@ -58,10 +72,5 @@ public class MainActivity extends AppCompatActivity {
             TextView textView = findViewById(id);
             textView.setText("");
         }
-    }
-
-    public static int sortearNumero() {
-        Random random = new Random();
-        return random.nextInt(60) + 1; // 0–59 + 1 = 1–60
     }
 }
